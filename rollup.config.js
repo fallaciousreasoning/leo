@@ -5,6 +5,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import fs from 'fs'
 import path from 'path'
+import emitDts from './emitDts';
 
 const webComponents = fs.readdirSync('./web-components')
     .map(c => [`./web-components/${c}/${c}.svelte`, `./web-components/${c}/react.ts`])
@@ -25,6 +26,7 @@ export default {
         sourcemap: true,
     },
     plugins: [
+        emitDts({ declarationDir: './build/web-components'}),
         svelte({
             compilerOptions: {
                 customElement: true
