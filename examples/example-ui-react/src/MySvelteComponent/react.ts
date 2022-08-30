@@ -9,8 +9,4 @@ export interface HelloEvent extends CustomEvent<{
   text: string
 }> {}
 
-export type Props = {
-  button_text: string
-  onHello: (e: HelloEvent) => unknown
-}
-export default SvelteToReact<Props>('leo-demo-button', Button)
+export default SvelteToReact('leo-demo-button', Button)

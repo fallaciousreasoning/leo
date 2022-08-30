@@ -18,9 +18,9 @@ export default {
         sourcemap: true,
     },
     plugins: [
-        svelteDts({
-            output: 'build/web-components/index.d.ts'
-        }),
+        // svelteDts({
+        //     output: 'build/web-components/index.d.ts'
+        // }),
         svelte({
             compilerOptions: {
                 customElement: true

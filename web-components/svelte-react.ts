@@ -21,7 +21,7 @@ export type SvelteEvents<T> = T extends SvelteComponentTyped<any, infer Events, 
  * For example, the event `click` would be mapped to `onClick`.
  */
 export type SvelteToReactProps<SvelteComponent> = SvelteProps<SvelteComponent> & {
-  [Prop in keyof SvelteEvents<SvelteComponent> as `on${Capitalize<Prop & string>}`]?: SvelteEvents<SvelteComponent>[Prop];
+  [Prop in keyof SvelteEvents<SvelteComponent> as `on${Capitalize<Prop & string>}`]?: (e: SvelteEvents<SvelteComponent>[Prop]) => void;
 }
 
 
