@@ -6,9 +6,10 @@ import typescript from '@rollup/plugin-typescript';
 import fs from 'fs'
 import path from 'path'
 import emitDts from './emitDts';
+import generateReactBinding from './generateReactBinding';
 
 const webComponents = fs.readdirSync('./web-components')
-    .map(c => [`./web-components/${c}/${c}.svelte`, `./web-components/${c}/react.ts`])
+    .map(c => [`./web-components/${c}/${c}.svelte`])
     .filter(([c]) => fs.existsSync(c))
     .flatMap(c => c);
 
@@ -26,6 +27,9 @@ export default {
         sourcemap: true,
     },
     plugins: [
+        generateReactBinding({
+            sources: webComponents
+        }),
         emitDts({ declarationDir: './build/web-components'}),
         svelte({
             compilerOptions: {
