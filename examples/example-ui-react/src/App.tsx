@@ -1,6 +1,6 @@
 import * as React from 'react';
 import "../../../build/css/variables.css"
-import LeoButton from '../../../web-components/button/react'
+import LeoButton from '../../../build/web-components/button/react'
 import styles from './App.module.css';
 import SvelteReactComponent, { HelloEvent } from './MySvelteComponent/react'
 
@@ -20,9 +20,9 @@ function App() {
     <div className={styles['App']}>
       <header className={styles['App-header']}>
         <h1>A React App</h1>
-        <LeoButton 
-          kind='primary' 
-          size='medium'
+        <LeoButton
+kind=''
+size='medium'
           onClick={() => alert('clicked')}
         >
             I am a LEO Button

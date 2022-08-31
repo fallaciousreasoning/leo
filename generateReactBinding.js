@@ -23,28 +23,23 @@ const generateReactBinding = (options = defaultOptions) => {
             for (const source of options.sources) {
                 const componentName = options.getComponentName(source);
                 const importName = componentName[0].toUpperCase() + componentName.substring(1);
+                console.log(componentName, importName)
                 const cacheFolder = getCacheFile(source, options)
                 await fs.mkdir(cacheFolder, { recursive: true })
 
-                await fs.writeFile(`${cacheFolder}/react.ts`, `
+                const content =`
 import SvelteToReact from '${path.relative(cacheFolder, options.reactWrapperPath)}'; 
 import ${importName} from '${path.relative(cacheFolder, source)}'
-export default SvelteToReact('leo-${componentName.toLowerCase()}', ${importName})`)
+export default SvelteToReact('leo-${componentName.toLowerCase()}', ${importName})`
+console.log(content)
+                await fs.writeFile(`${cacheFolder}/react.ts`, content)
 
                 this.emitFile({
                     type: 'chunk',
-                    fileName: `${componentName}/react.ts`,
+                    fileName: `${componentName}/react.js`,
                     id: `${cacheFolder}/react.ts`
                 })
             }
-        },
-        generateBundle() {
-            // for (const source of options.sources) {
-            //     this.emitFile({
-            //         type: 'chunk',
-            //         id: getCacheFile(source, options)
-            //     })
-            // }
         },
     }
 }

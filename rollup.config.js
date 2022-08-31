@@ -5,7 +5,8 @@ import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import fs from 'fs'
 import path from 'path'
-import emitDts from './emitDts';
+import emitDts from 'rollup-plugin-svelte-types';
+console.log('emit', emitDts())
 import generateReactBinding from './generateReactBinding';
 
 const webComponents = fs.readdirSync('./web-components')
@@ -14,13 +15,17 @@ const webComponents = fs.readdirSync('./web-components')
     .flatMap(c => c);
 
 export default [{
-    input: webComponents,
+    external: ['react', 'react-dom'],
+    input: [...webComponents, './web-components/svelte-react.ts'],
     output: {
         dir: 'build/web-components',
         // The destination for our bundled JavaScript
         entryFileNames: (file) => {
+            const name = file.name
+            if (name === 'svelte-react') return '[name].js'
+
             const directory = path.basename(path.resolve(file.facadeModuleId, '..'));
-            return `${directory}/${file.name.endsWith('react') ? 'react' : 'index'}.js`
+            return `${directory}/[name].js`
         },
         format: 'esm',
         sourcemap: true,
@@ -40,13 +45,13 @@ export default [{
         }),
         // Tell any third-party plugins that we're building for the browser
         resolve({ browser: true }),
-        commonjs(),
+        commonjs({
+            exclude: ['react', 'react-dom'],
+            globals: {
+                react: 'React',
+                'react-dom': 'ReactDOM'
+            }
+        }),
         typescript(),
     ],
-}, {
-    input: './web-components/svelte-react.ts',
-    output: {
-        dir: 'build/web-components'
-    },
-    plugins: [resolve({ browser: true}), commonjs(), typescript()]
-}];
+}, ];
