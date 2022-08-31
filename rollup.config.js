@@ -13,14 +13,13 @@ const webComponents = fs.readdirSync('./web-components')
     .filter(([c]) => fs.existsSync(c))
     .flatMap(c => c);
 
-export default {
-    input: [...webComponents],
+export default [{
+    input: webComponents,
     output: {
         dir: 'build/web-components',
         // The destination for our bundled JavaScript
         entryFileNames: (file) => {
             const directory = path.basename(path.resolve(file.facadeModuleId, '..'));
-            console.log(directory)
             return `${directory}/${file.name.endsWith('react') ? 'react' : 'index'}.js`
         },
         format: 'esm',
@@ -30,7 +29,7 @@ export default {
         generateReactBinding({
             sources: webComponents
         }),
-        emitDts({ declarationDir: './build/web-components'}),
+        emitDts({ declarationDir: './build/web-components' }),
         svelte({
             compilerOptions: {
                 customElement: true
@@ -44,4 +43,10 @@ export default {
         commonjs(),
         typescript(),
     ],
-};
+}, {
+    input: './web-components/svelte-react.ts',
+    output: {
+        dir: 'build/web-components'
+    },
+    plugins: [resolve({ browser: true}), commonjs(), typescript()]
+}];
