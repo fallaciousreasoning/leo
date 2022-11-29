@@ -12,6 +12,7 @@
       control: 'text',
       description: 'The name of the icon to use',
       type: 'string',
+      defaultValue: 'shield-alert-filled'
     },
     color: {
       control: 'color',
@@ -21,14 +22,15 @@
     size: {
       control: 'number',
       description: 'The size of the icon (defaults to 24px if not set)',
-      type: 'number'
+      type: 'number',
+      defaultValue: 24
     }
   }}
 />
 
 <Template let:args>
   <div style={`--leo-icon-color: ${args.color}; --leo-icon-size: ${args.size}px;`}>
-    <Icon name="shield-alert-filled" {...args} />
+    <Icon {...args} />
   </div>
 </Template>
 
