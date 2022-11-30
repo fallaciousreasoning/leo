@@ -32,7 +32,7 @@
     "@types/jest": "29.2.3",
     "babel-loader": "9.1.0",
     "css-loader": "6.7.2",
-    "figma-api-exporter": "github:fallaciousreasoning/figma-api-exporter#60afdd4",
+    "figma-api-exporter": "github:slawomirkolodziej/figma-api-exporter#664caaa010f295bde15ec4db752abd0a2cc8d2af",
     "jest": "29.3.1",
     "postcss": "8.4.19",
     "postcss-js": "4.0.0",
