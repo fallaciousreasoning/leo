@@ -6,6 +6,7 @@
   "dependencies": {
     "@ctrl/tinycolor": "3.4.1",
     "@tsconfig/svelte": "3.0.0",
+    "jsdom": "^20.0.3",
     "lodash.merge": "4.6.2",
     "style-dictionary": "3.7.1",
     "svelte": "3.53.1",

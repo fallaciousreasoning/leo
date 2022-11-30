@@ -37,7 +37,8 @@
 </script>
 
 <script lang="ts">
-  import { getLibrary, IconLibrary } from './iconLibrary'
+  import type { IconLibrary } from './iconLibrary';
+  import { getLibrary } from './iconLibrary'
 
   export let name: string
   export let library: string = 'default'
