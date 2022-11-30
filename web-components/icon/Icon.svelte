@@ -9,7 +9,7 @@
     Promise<{ ok: boolean; svg: string | null }>
   >()
   const fetchIcon = async (library: IconLibrary, name: string) => {
-    const url = library.resolve(name);
+    const url = library.resolve(name)
     const response = await fetch(url)
     if (!response.ok) return { ok: false, svg: null }
 
@@ -43,15 +43,17 @@
   export let library: string = 'default'
 
   $: iconLibrary = getLibrary(library)
-  $: iconPromise = requestIcon(iconLibrary, name)
+  $: iconPromise = !$$slots.default && requestIcon(iconLibrary, name)
 </script>
 
 <div class="leoIcon" part="container">
-  {#await iconPromise then result}
-    {#if result.svg}
-      {@html result.svg}
-    {/if}
-  {/await}
+  <slot>
+    {#await iconPromise then result}
+      {#if result.svg}
+        {@html result.svg}
+      {/if}
+    {/await}
+  </slot>
 </div>
 
 <style lang="scss">
@@ -63,7 +65,7 @@
     height: var(--icon-height);
     color: var(--leo-icon-color, inherit);
 
-    svg {
+    :global(svg) {
       width: 100%;
       height: 100%;
     }
