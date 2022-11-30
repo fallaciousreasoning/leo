@@ -50,14 +50,23 @@
     --vertical-margin: var(--leo-navdots-vertical-margin, 1px);
 
     // By default, expanded dot grows to fill half spacing in each direction.
-    --expanded-width: var(--leo-navdots-expanded-width, calc(var(--leo-navdots-size) + var(--leo-navdots-spacing)));
+    --expanded-width: var(
+      --leo-navdots-expanded-width,
+      calc(var(--leo-navdots-size) + var(--leo-navdots-spacing))
+    );
 
     --color: var(--leo-navdots-color, var(--color-primary-20));
     --color-hover: var(--leo-navdots-color-hover, var(--color-primary-30));
 
-    --active-color: var(--leo-navdots-active-color, var(--color-interaction-button-primary-background));
-    --active-color-hover: var(--leo-navdots-active-color-hover, var(--color-icon-interactive));
-    
+    --active-color: var(
+      --leo-navdots-active-color,
+      var(--color-interaction-button-primary-background)
+    );
+    --active-color-hover: var(
+      --leo-navdots-active-color-hover,
+      var(--color-icon-interactive)
+    );
+
     --focus-outline-color: var(--leo-navdots-focus-outline-color, #423eee);
 
     --current-dot: 0;
@@ -79,9 +88,11 @@
         display: flex;
       }
 
-      &:has(.dot.active:focus-visible) .active-dot {
-        box-shadow: 0px 0px 0px 1.5px rgba(255, 255, 255, 0.5),
-          0px 0px 4px 2px var(--focus-outline-color);
+      @supports selector(:has(.dot)) {
+        &:has(.dot.active:focus-visible) .active-dot {
+          box-shadow: 0px 0px 0px 1.5px rgba(255, 255, 255, 0.5),
+            0px 0px 4px 2px var(--focus-outline-color);
+        }
       }
     }
 
@@ -114,8 +125,8 @@
         box-shadow var(--transition-duration) var(--transition-easing);
       transform: translate(
         calc(
-          (var(--size) + var(--spacing)) * var(--current-dot) -
-            var(--spacing) / 2
+          (var(--size) + var(--spacing)) * var(--current-dot) - var(--spacing) /
+            2
         ),
         0
       );
